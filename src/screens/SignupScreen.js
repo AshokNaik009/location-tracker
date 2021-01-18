@@ -1,19 +1,25 @@
-import React from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
+import React from 'react';
+import { View, StyleSheet, } from 'react-native';
+import { Text,Input, Button  } from 'react-native-elements';
+import Spacer from './components/Spacer';
 
 const SignupScreen = ({ navigation }) => {
   return (
-    <View>
-      <Text style={{ fontSize: 48 }}> SignupScreen </Text>
-      <Button
-        title="Go to Signin"
-        onPress={() => navigation.navigate("Signin")}
-      />
-      <Button
-        title="Go to MainFlow"
-        onPress={() => navigation.navigate("mainFlow")}
-      />
-    </View>
+    <>
+    <Spacer>
+      <Text h3> Sign Up for Tracker </Text>
+    </Spacer>
+    <Spacer>
+      <Input label="Email" />
+    </Spacer>
+    <Spacer>
+      <Input label="Password" />
+    </Spacer>
+    <Spacer>
+      <Button title="SignUp"/>
+    </Spacer>
+
+    </>
   );
 };
 
