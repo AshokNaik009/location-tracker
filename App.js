@@ -12,11 +12,11 @@ import { TrackCreateScreen } from './src/screens/TrackCreateScreen';
 import { TrackDetailsScreen } from './src/screens/TrackDetailsScreen';
 import { TrackListScreen } from './src/screens/TrackListScreen';
 
-const swicthNavigator = createSwitchnavigator({
+const swicthNavigator = createSwitchNavigator({
     loginFlow:createStackNavigator({
         Signup:SignupScreen,
         Signin:SigninScreen
-    }),mainFlow:createBottomNavigator({
+    }),mainFlow:createBottomTabNavigator({
         trackListFlow:createStackNavigator({
             TrackList:TrackListScreen,
             TrackDetail:TrackDetailsScreen
