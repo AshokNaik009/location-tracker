@@ -6,30 +6,11 @@ import {SafeAreaView} from 'react-navigation';
 import { requestPermissionsAsync ,watchPositionAsync ,Accuracy} from 'expo-location';
 import { Context as LocationContext } from '../context/LocationContext';
 import Map from './components/Map';
+import useLocation from '../hooks/useLocation';
 
 const TrackCreateScreen = () =>{
     const {addLocation}  = useContext(LocationContext);
-    const [err,setErr] =  useState(null);
-    useEffect(()=>{
-        startWatching();
-    },[]);
-    const startWatching = async () =>{
-        try {
-            const { granted } = await requestPermissionsAsync();
-            await watchPositionAsync({
-                accuracy:Accuracy.BestForNavigation,
-                timeInterval:1000,
-                distanceInterval:10
-            },(location)=>{
-                addLocation(location)
-            })
-            if (!granted) {
-              throw new Error('Location permission not granted');
-            }
-        } catch (error) {
-            setErr(error)
-        }
-    };
+    const [err] = useLocation(addLocation);
     return( <SafeAreaView>
           <Text h2>  Track Create Screen </Text>
           <Map/>
