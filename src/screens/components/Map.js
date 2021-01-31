@@ -9,7 +9,6 @@ const Map = () => {
    if(!currentLocation) {
      return <ActivityIndicator  size="large" style={{marginTop:200}} />
    }
-   console.log("currentLocation.coords",currentLocation.coords);
   return (
     <MapView
       style={styles.map}
