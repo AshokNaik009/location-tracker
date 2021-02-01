@@ -10,8 +10,10 @@ import TrackForm from './components/TrackForm';
 import useLocation from '../hooks/useLocation';
 
 const TrackCreateScreen = ({isFocused}) =>{
-    const {addLocation}  = useContext(LocationContext);
-    const [err] = useLocation(isFocused,addLocation);
+    const {addLocation,state}  = useContext(LocationContext);
+    const [err] = useLocation(isFocused,(location)=>{
+        addLocation(location,state.recording)
+    });
     return( <SafeAreaView>
           <Text h2>  Track Create Screen </Text>
           <Map/>
