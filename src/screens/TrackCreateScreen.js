@@ -9,20 +9,29 @@ import Map from './components/Map';
 import TrackForm from './components/TrackForm';
 import useLocation from '../hooks/useLocation';
 
-const TrackCreateScreen = ({isFocused}) =>{
-    const {addLocation,state}  = useContext(LocationContext);
-    const callback = useCallback((location)=>{
-        addLocation(location,state.recording)
-    });
-    const [err] = useLocation(isFocused,callback);
-    return( <SafeAreaView>
-          <Text h2>  Track Create Screen </Text>
-          <Map/>
-          { err ? <Text> Location Permisson Denied </Text> :null }
-          <TrackForm/>
-    </SafeAreaView>);
-}
-
-const styles = StyleSheet.create({});
-
-export default withNavigationFocus(TrackCreateScreen);
+const TrackCreateScreen = ({ isFocused }) => {
+    const {
+      state: { recording },
+      addLocation
+    } = useContext(LocationContext);
+    const callback = useCallback(
+      location => {
+        addLocation(location, recording);
+      },
+      [recording]
+    );
+    const [err] = useLocation(isFocused || recording, callback);
+  
+    return (
+      <SafeAreaView forceInset={{ top: 'always' }}>
+        <Text h2>Create a Track</Text>
+        <Map />
+        {err ? <Text>Please enable location services</Text> : null}
+        <TrackForm />
+      </SafeAreaView>
+    );
+  };
+  
+  const styles = StyleSheet.create({});
+  
+  export default withNavigationFocus(TrackCreateScreen);
