@@ -1,39 +1,47 @@
-import React , { useContext }  from "react";
-import { Text, View, StyleSheet, Button ,FlatList , TouchableOpacity } from "react-native";
+import React, { useContext } from "react";
+import {
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import { NavigationEvents } from "react-navigation";
-import { Context } from "../context/LocationContext";
-import { ListItem } from "react-native-elements";
-import { Context as TrackContext } from '../context/TrackContext';
+import { ListItem ,Text } from "react-native-elements";
+import Spacer from './components/Spacer';
+import { Context as TrackContext } from "../context/TrackContext";
+import { FontAwesome } from '@expo/vector-icons';
 
 const TrackListScreen = ({ navigation }) => {
-
-  const { state, fetchTracks  } = useContext(TrackContext);
-
-  console.log(state);
+  const { state, fetchTracks } = useContext(TrackContext);
 
   return (
-    <View>
-      <NavigationEvents onWillFocus={() =>  fetchTracks()} />
-      <Text style={{ fontSize: 48 }}> TrackListScreen </Text>
-      <FlatList 
+    <>
+        <NavigationEvents onWillFocus={fetchTracks} />
+      <FlatList
         data={state}
-        keyExtractor={item => item._id}
-        renderItem={({item})=>{
-          console.log("item",item.name);
-          return <TouchableOpacity>
-               <Text> {item.name}</Text>
-          </TouchableOpacity>
+        keyExtractor={(item) => item._id}
+        renderItem={({ item }) => {
+          return (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("TrackDetail", { _id: item._id });
+              }}
+            >
+              <Spacer>
+              <Text h3> {item.name}   <FontAwesome name="map-o" size={24} color="black" />   </Text>
+              </Spacer>
+           
+              
+            </TouchableOpacity>
+          );
         }}
-      
       />
-      {/* <Button
-        title="Go to Track Detail"
-        onPress={() => navigation.navigate("TrackDetail")}
-      /> */}
-    </View>
+    </>
   );
 };
 
+TrackListScreen.navigationOptions = {
+  title:'Tracks'
+}
 const styles = StyleSheet.create({});
 
 export default TrackListScreen;
